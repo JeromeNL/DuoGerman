@@ -3,6 +3,7 @@ package nl.joramkwetters.duogerman.Screens
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,7 +23,7 @@ import nl.joramkwetters.duogerman.data.names
 fun WordsScreen() {
     val nameList = names.map{
         Category(
-           name = it.key.toString(),
+            name = it.key.toString(),
             items = it.value
         )
     }
@@ -39,7 +40,7 @@ fun WordsScreen() {
 
 data class Category(
     val name: String,
-    val items: List<String>
+    val items: List<Pair<String, String>>
 )
 
 @Composable
@@ -61,17 +62,31 @@ fun CategoryHeader(
 
 @Composable
 fun CategoryItem(
-    text: String,
+    textFrom: String,
+    textTo: String,
     modifier: Modifier = Modifier
 ) {
-    Text(
-        text = text,
-        fontSize = 14.sp,
-        modifier = modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
-    )
+
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = textFrom,
+            fontSize = 14.sp,
+            modifier = Modifier
+                .weight(1f) // Neemt de helft van de beschikbare ruimte in beslag
+                .padding(16.dp)
+                .background(MaterialTheme.colorScheme.background)
+        )
+        Text(
+            text = textTo,
+            fontSize = 14.sp,
+            modifier = Modifier
+                .weight(1f) // Neemt de helft van de beschikbare ruimte in beslag
+                .padding(16.dp)
+                .background(MaterialTheme.colorScheme.background)
+        )
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -86,7 +101,7 @@ fun CategorizedLazyColumn(
                 CategoryHeader(category.name)
             }
             items(category.items) { text ->
-                CategoryItem(text)
+                CategoryItem(text.first, text.second)
             }
         }
     }
