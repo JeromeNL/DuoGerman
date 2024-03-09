@@ -67,11 +67,11 @@ fun AppNavigation() {
             composable(route = Screens.HomeScreen.name){
                 HomeScreen()
             }
-            composable(route = Screens.NewsScreen.name){
-                NewsScreen()
-            }
             composable(route = Screens.WordsScreen.name){
                 WordsScreen()
+            }
+            composable(route = Screens.NewsScreen.name){
+                NewsScreen()
             }
             composable(route = Screens.SettingsScreen.name){
                 SettingsScreen()
