@@ -2,7 +2,6 @@ package nl.joramkwetters.duogerman
 
 import android.app.NotificationManager
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
@@ -12,7 +11,7 @@ class GermanNotificationService(
     private val context: Context
 ) {
     val notificationManager = context.getSystemService((NotificationManager::class.java))
-    fun showBasicNotification(){
+    fun showPracticeNotification(){
         val notification = NotificationCompat.Builder(context, "duo_german_channel")
             .setContentTitle("Duo German")
             .setContentText("Time to practice German!")
@@ -26,19 +25,12 @@ class GermanNotificationService(
         )
     }
 
-    fun showExpandableNotification(){
-        val image = context.bitmapFromResource(R.drawable.ic_launcher_foreground)
+    fun showNewsNotification(){
         val notification = NotificationCompat.Builder(context, "duo_german_channel")
             .setContentTitle("Duo German")
-            .setContentText("Time to practice German!")
+            .setContentText("Let's read some German news!")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setLargeIcon(image)
-            .setStyle(
-                NotificationCompat.BigPictureStyle()
-                    .bigPicture(image)
-                    .bigLargeIcon(null as Bitmap)
-            )
             .build()
 
         notificationManager.notify(
