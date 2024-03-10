@@ -70,5 +70,7 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")
 
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 }
 

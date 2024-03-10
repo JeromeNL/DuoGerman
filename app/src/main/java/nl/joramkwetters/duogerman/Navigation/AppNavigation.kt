@@ -22,10 +22,12 @@ import nl.joramkwetters.duogerman.Screens.HomeScreen
 import nl.joramkwetters.duogerman.Screens.NewsScreen
 import nl.joramkwetters.duogerman.Screens.SettingsScreen
 import nl.joramkwetters.duogerman.Screens.WordsScreen
+import nl.joramkwetters.duogerman.ViewModels.ThemeViewModel
+import nl.joramkwetters.duogerman.data.DataStoreUtil
 
 
 @Composable
-fun AppNavigation(context: Context) {
+fun AppNavigation(context: Context, dataStoreUtil: DataStoreUtil, themeViewModel: ThemeViewModel) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -76,7 +78,7 @@ fun AppNavigation(context: Context) {
                 NewsScreen()
             }
             composable(route = Screens.SettingsScreen.name){
-                SettingsScreen(context)
+                SettingsScreen(context, dataStoreUtil, themeViewModel)
             }
 
         }
