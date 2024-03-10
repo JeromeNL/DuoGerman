@@ -12,6 +12,7 @@ class GermanNotificationService(
 ) {
     val notificationManager = context.getSystemService((NotificationManager::class.java))
     fun showPracticeNotification(){
+
         val notification = NotificationCompat.Builder(context, "duo_german_channel")
             .setContentTitle("Duo German")
             .setContentText("Time to practice German!")

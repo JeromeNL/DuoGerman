@@ -52,7 +52,6 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
         }
     }
 
-
     Column {
         Row(
             modifier = Modifier.fillMaxSize(),
