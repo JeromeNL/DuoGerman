@@ -1,6 +1,9 @@
 package nl.joramkwetters.duogerman.Navigation
 
 import android.content.Context
+import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -26,8 +29,9 @@ import nl.joramkwetters.duogerman.ViewModels.ThemeViewModel
 import nl.joramkwetters.duogerman.data.DataStoreUtil
 
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
-fun AppNavigation(context: Context, dataStoreUtil: DataStoreUtil, themeViewModel: ThemeViewModel) {
+fun AppNavigation(context: Context, dataStoreUtil: DataStoreUtil, themeViewModel: ThemeViewModel, intent: Intent) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -72,7 +76,7 @@ fun AppNavigation(context: Context, dataStoreUtil: DataStoreUtil, themeViewModel
                 HomeScreen()
             }
             composable(route = Screens.WordsScreen.name){
-                WordsScreen()
+                WordsScreen(intent)
             }
             composable(route = Screens.NewsScreen.name){
                 NewsScreen()

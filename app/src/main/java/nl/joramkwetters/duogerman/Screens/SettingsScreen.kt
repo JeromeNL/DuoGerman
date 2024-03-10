@@ -2,9 +2,11 @@ package nl.joramkwetters.duogerman.Screens
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,6 +48,7 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
 
     val germanNotificationService = GermanNotificationService(context)
 
+
     LaunchedEffect(key1 = true){
         if (!postNotificationPermission.status.isGranted) {
             postNotificationPermission.launchPermissionRequest()
@@ -78,6 +81,8 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
 
             }
         }
+
+
     }
 }
 
@@ -109,4 +114,6 @@ fun DarkmodeSwitch(themeViewModel: ThemeViewModel, dataStoreUtil: DataStoreUtil)
             checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
         ),
     )
+
+
 }

@@ -2,10 +2,12 @@ package nl.joramkwetters.duogerman
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +26,7 @@ class MainActivity : ComponentActivity() {
     private val themeViewModel: ThemeViewModel by viewModels()
     private lateinit var dataStoreUtil: DataStoreUtil
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataStoreUtil = DataStoreUtil(applicationContext)
@@ -47,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column(){
-                        AppNavigation(context, dataStoreUtil, themeViewModel)
+                        AppNavigation(context, dataStoreUtil, themeViewModel, intent)
                     }
                 }
             }
