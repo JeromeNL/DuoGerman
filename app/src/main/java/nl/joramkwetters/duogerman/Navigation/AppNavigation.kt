@@ -1,5 +1,7 @@
 package nl.joramkwetters.duogerman.Navigation
 
+import android.content.Context
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -23,7 +25,7 @@ import nl.joramkwetters.duogerman.Screens.WordsScreen
 
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(context: Context) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -74,7 +76,7 @@ fun AppNavigation() {
                 NewsScreen()
             }
             composable(route = Screens.SettingsScreen.name){
-                SettingsScreen()
+                SettingsScreen(context)
             }
 
         }
