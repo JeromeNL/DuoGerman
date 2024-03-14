@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
 import nl.joramkwetters.duogerman.ViewModels.NewsViewModel
 import nl.joramkwetters.duogerman.data.NewsItem
@@ -36,21 +38,28 @@ import nl.joramkwetters.duogerman.ui.theme.CustomTextRed
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlinx.coroutines.delay
 
 @Composable
 fun NewsScreen(newsViewModel: NewsViewModel = viewModel()) {
     val newsList = newsViewModel.newsState.collectAsState().value
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
+
+    SwipeRefresh(
+        state = swipeRefreshState,
+        onRefresh = {
+            newsViewModel.fetchNews()
+        }
+    ) {
+        LazyColumn(modifier = Modifier.background(CustomBackgroundLightGray)) {
+            items(newsList) { newsItem ->
+                NewsItemView(newsItem)
+            }
+        }
+    }
 
     LaunchedEffect(key1 = true) {
         newsViewModel.fetchNews()
-    }
-
-    LazyColumn(
-        modifier = Modifier.background(CustomBackgroundLightGray)
-    ) {
-        items(newsList) { newsItem ->
-            NewsItemView(newsItem)
-        }
     }
 }
 
