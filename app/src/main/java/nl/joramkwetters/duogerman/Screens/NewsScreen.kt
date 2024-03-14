@@ -1,6 +1,9 @@
 package nl.joramkwetters.duogerman.Screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -8,10 +11,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import nl.joramkwetters.duogerman.ViewModels.NewsViewModel
 import nl.joramkwetters.duogerman.data.NewsItem
+import nl.joramkwetters.duogerman.ui.theme.CustomBackgroundLightGray
+import nl.joramkwetters.duogerman.ui.theme.CustomTextRed
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun NewsScreen(newsViewModel: NewsViewModel = viewModel()) {
@@ -32,9 +45,64 @@ fun NewsScreen(newsViewModel: NewsViewModel = viewModel()) {
 
 @Composable
 fun NewsItemView(newsItem: NewsItem) {
-    Column {
-        newsItem.title?.let { Text(text = it) }
-        newsItem.date?.let { Text(text = it) }
-        // Hier kun je de afbeelding toevoegen met een Image composable
+    Box(
+        modifier = Modifier
+            .padding(8.dp)
+            .background(CustomBackgroundLightGray)
+            .padding(16.dp)
+
+
+    ) {
+    Column() {
+        newsItem.topline?.let {
+            Text(
+                text = it,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Left,
+                color = CustomTextRed,
+                modifier = Modifier
+                    .padding(top = 4.dp, bottom = 2.dp)
+            )
+        }
+        newsItem.title?.let {
+            Text(
+                text = it,
+                fontSize = 22.sp,
+                textAlign = TextAlign.Left,
+                modifier = Modifier
+                    .padding(top = 2.dp, bottom = 2.dp)
+            )
+        }
+        newsItem.firstSentence?.let {
+            Text(
+                text = it,
+                fontSize = 14.sp,
+                textAlign = TextAlign.Left,
+                modifier = Modifier
+                    .padding(top = 4.dp, bottom = 4.dp)
+            )
+        }
+        newsItem.date?.let {
+           FormatDate(it)
+        }
     }
+    }
+}
+
+
+@Composable
+fun FormatDate(dateString: String) {
+    val inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+    val outputFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY)
+
+    val date = LocalDateTime.parse(dateString, inputFormatter)
+    val formattedDate = date.format(outputFormatter)
+
+    Text(
+        text = formattedDate,
+        fontSize = 10.sp,
+        textAlign = TextAlign.Left,
+        modifier = Modifier
+            .padding(4.dp)
+    )
 }
