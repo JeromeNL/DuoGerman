@@ -1,25 +1,36 @@
 package nl.joramkwetters.duogerman.Screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
 import nl.joramkwetters.duogerman.ViewModels.NewsViewModel
 import nl.joramkwetters.duogerman.data.NewsItem
+import nl.joramkwetters.duogerman.ui.theme.CustomAlmostWhite
 import nl.joramkwetters.duogerman.ui.theme.CustomBackgroundLightGray
 import nl.joramkwetters.duogerman.ui.theme.CustomTextRed
 import java.time.LocalDateTime
@@ -30,14 +41,14 @@ import java.util.Locale
 fun NewsScreen(newsViewModel: NewsViewModel = viewModel()) {
     val newsList = newsViewModel.newsState.collectAsState().value
 
-    // Gebruik LaunchedEffect om de coroutine uit te voeren
     LaunchedEffect(key1 = true) {
         newsViewModel.fetchNews()
     }
 
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier.background(CustomBackgroundLightGray)
+    ) {
         items(newsList) { newsItem ->
-            // Zorg ervoor dat newsItem niet null is of gebruik een fallback
             NewsItemView(newsItem)
         }
     }
@@ -48,12 +59,22 @@ fun NewsItemView(newsItem: NewsItem) {
     Box(
         modifier = Modifier
             .padding(8.dp)
-            .background(CustomBackgroundLightGray)
+            .background(CustomAlmostWhite, shape = RoundedCornerShape(6.dp))
             .padding(16.dp)
-
-
+            .clip(RoundedCornerShape(6.dp))
     ) {
     Column() {
+        newsItem.teaserImage?.imageVariants?.jsonMember16x9512?.let { imageUrl ->
+            Image(
+                painter = rememberAsyncImagePainter(imageUrl),
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .size(200.dp)
+                    .clip(RoundedCornerShape(6.dp))
+            )
+        }
         newsItem.topline?.let {
             Text(
                 text = it,
