@@ -1,9 +1,13 @@
 package nl.joramkwetters.duogerman.Screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,8 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,12 +73,17 @@ fun NewsScreen(newsViewModel: NewsViewModel = viewModel()) {
 
 @Composable
 fun NewsItemView(newsItem: NewsItem) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .padding(8.dp)
             .background(CustomAlmostWhite, shape = RoundedCornerShape(6.dp))
             .padding(16.dp)
             .clip(RoundedCornerShape(6.dp))
+            .clickable {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(newsItem.shareURL))
+            context.startActivity(intent)
+        }
     ) {
     Column() {
         newsItem.teaserImage?.imageVariants?.jsonMember16x9512?.let { imageUrl ->
@@ -114,13 +125,14 @@ fun NewsItemView(newsItem: NewsItem) {
                     .padding(top = 4.dp, bottom = 4.dp)
             )
         }
-        newsItem.date?.let {
-           FormatDate(it)
+        Row(){
+            newsItem.date?.let {
+                FormatDate(it)
+            }
         }
     }
     }
 }
-
 
 @Composable
 fun FormatDate(dateString: String) {
