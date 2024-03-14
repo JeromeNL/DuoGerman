@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -17,6 +19,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,6 +34,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -38,6 +45,8 @@ import kotlinx.coroutines.launch
 import nl.joramkwetters.duogerman.GermanNotificationService
 import nl.joramkwetters.duogerman.ViewModels.ThemeViewModel
 import nl.joramkwetters.duogerman.data.DataStoreUtil
+import nl.joramkwetters.duogerman.ui.theme.CustomBackgroundLightGray
+import nl.joramkwetters.duogerman.ui.theme.CustomDefaultRed
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @OptIn(ExperimentalPermissionsApi::class)
@@ -55,17 +64,29 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
         }
     }
 
-    Column {
+    Column(modifier = Modifier.background(CustomBackgroundLightGray)) {
         Row(
-            modifier = Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+
+
         ) {
             Column {
+                Text(
+                    text = "Notifications",
+                    modifier = Modifier,
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Button(
                     onClick = {
                         germanNotificationService.showPracticeNotification()
-                    }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = CustomDefaultRed
+                    )
+
                 ){
                     Text("Show practice notification")
                 }
@@ -73,10 +94,19 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
                 Button(
                     onClick = {
                         germanNotificationService.showNewsNotification()
-                    }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = CustomDefaultRed
+                    )
                 ){
                     Text("Show news notification")
                 }
+                Text(
+                    text = "Dark Mode",
+                    modifier = Modifier,
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 DarkmodeSwitch(themeViewModel = themeViewModel, dataStoreUtil = dataStoreUtil)
 
             }
@@ -111,7 +141,7 @@ fun DarkmodeSwitch(themeViewModel: ThemeViewModel, dataStoreUtil: DataStoreUtil)
         },
         colors = SwitchDefaults.colors(
             checkedTrackColor = MaterialTheme.colorScheme.primary,
-            checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
+            checkedThumbColor = CustomDefaultRed
         ),
     )
 
