@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -59,7 +60,7 @@ fun NewsScreen(newsViewModel: NewsViewModel = viewModel()) {
             newsViewModel.fetchNews()
         }
     ) {
-        LazyColumn(modifier = Modifier.background(CustomBackgroundLightGray)) {
+        LazyColumn(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
             items(newsList) { newsItem ->
                 NewsItemView(newsItem)
             }
@@ -77,7 +78,7 @@ fun NewsItemView(newsItem: NewsItem) {
     Box(
         modifier = Modifier
             .padding(8.dp)
-            .background(CustomAlmostWhite, shape = RoundedCornerShape(6.dp))
+            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(6.dp))
             .padding(16.dp)
             .clip(RoundedCornerShape(6.dp))
             .clickable {
@@ -102,7 +103,7 @@ fun NewsItemView(newsItem: NewsItem) {
                 text = it,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Left,
-                color = CustomTextRed,
+                color = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier
                     .padding(top = 4.dp, bottom = 2.dp)
             )
@@ -112,6 +113,7 @@ fun NewsItemView(newsItem: NewsItem) {
                 text = it,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Left,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier
                     .padding(top = 2.dp, bottom = 2.dp)
             )
@@ -121,6 +123,7 @@ fun NewsItemView(newsItem: NewsItem) {
                 text = it,
                 fontSize = 14.sp,
                 textAlign = TextAlign.Left,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier
                     .padding(top = 4.dp, bottom = 4.dp)
             )
@@ -146,6 +149,7 @@ fun FormatDate(dateString: String) {
         text = formattedDate,
         fontSize = 10.sp,
         textAlign = TextAlign.Left,
+        color = MaterialTheme.colorScheme.primary,
         modifier = Modifier
             .padding(4.dp)
     )

@@ -64,31 +64,33 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
         }
     }
 
-    Column(modifier = Modifier.background(CustomBackgroundLightGray)) {
+    Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-
-
         ) {
             Column {
                 Text(
                     text = "Notifications",
                     modifier = Modifier,
                     fontSize = 26.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary,
                 )
                 Button(
                     onClick = {
                         germanNotificationService.showPracticeNotification()
                     },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = CustomDefaultRed
+                        containerColor = MaterialTheme.colorScheme.onBackground
                     )
 
                 ){
-                    Text("Show practice notification")
+                    Text(
+                        text = "Show practice notification",
+                        color = MaterialTheme.colorScheme.surface
+                    )
                 }
 
                 Button(
@@ -96,16 +98,20 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
                         germanNotificationService.showNewsNotification()
                     },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = CustomDefaultRed
+                        containerColor = MaterialTheme.colorScheme.onBackground
                     )
                 ){
-                    Text("Show news notification")
+                    Text(
+                        text = "Show news notification",
+                        color = MaterialTheme.colorScheme.surface
+                    )
                 }
                 Text(
                     text = "Dark Mode",
                     modifier = Modifier,
                     fontSize = 26.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary,
                 )
                 DarkmodeSwitch(themeViewModel = themeViewModel, dataStoreUtil = dataStoreUtil)
 
