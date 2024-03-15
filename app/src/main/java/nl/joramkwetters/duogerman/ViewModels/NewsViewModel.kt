@@ -17,8 +17,10 @@ class NewsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val newsResponse = RetrofitInstance.api.getNews()
-                // Filter artikelen waarbij 'topline' niet null is
-                val validNewsItems = newsResponse.news?.filterNotNull()?.filter { it.topline != null }
+                // Filter artikelen waarbij 'topline' en 'firstSentence' niet null zijn
+                val validNewsItems = newsResponse.news?.filterNotNull()?.filter {
+                    it.topline != null &&  it.firstSentence != ""
+                }
                 if (validNewsItems != null) {
                     _newsState.value = validNewsItems
                 }
