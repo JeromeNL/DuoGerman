@@ -10,32 +10,49 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
+//private val DarkColorScheme = darkColorScheme(
+////    primary = CustomDefaultRed,
+//////    secondary = PurpleGrey80,
+//////    tertiary = Pink80,
+////    background = CustomBackgroundLightGray,
+////    surface = Color(0xFF121212),  // Aangepaste kleur voor donkere modus
+////    onPrimary = CustomTextLightGray,
+////    onSecondary = Color.White,
+////    onTertiary = Color.White,
+////    onBackground = CustomTextLightGray,
+////    onSurface = CustomTextDarkGray,
+//)
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
+    primary = Color.Blue,
+    secondary = Color.Blue,
+    tertiary = Color.Blue,
+    background = Color.Blue,
+    surface = Color.Blue,
+    onPrimary = Color.Black,
     onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    onBackground = CustomDefaultRed,
+    onSurface = CustomTextLightGray,
 )
+
+private val DarkColorScheme = darkColorScheme(
+    primary = CustomTextLightGray,
+    secondary = CustomTextDarkGray,
+    tertiary = CustomTextRed,
+    background = CustomAlmostWhite,
+    surface = CustomBackgroundLightGray,
+    onPrimary = Color.Black,
+    onSecondary = Color.White,
+    onBackground = CustomDefaultRed,
+    onSurface = CustomTextLightGray,
+)
+
 
 @Composable
 fun DuoGermanTheme(
@@ -57,7 +74,7 @@ fun DuoGermanTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = CustomDefaultRed.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
