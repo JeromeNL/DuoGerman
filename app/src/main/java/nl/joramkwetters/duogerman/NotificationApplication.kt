@@ -14,7 +14,7 @@ class NotificationApplication: Application() {
             "Duo German Channel",
             NotificationManager.IMPORTANCE_HIGH
         )
-        notificationChannel.description = "This is the notification channel for the Duo German app"
+            notificationChannel.description = "This is the notification channel for the Duo German app"
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.createNotificationChannel(notificationChannel)
             }

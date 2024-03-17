@@ -117,11 +117,8 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
                     color = MaterialTheme.colorScheme.secondary,
                 )
                 DarkmodeSwitch(themeViewModel = themeViewModel, dataStoreUtil = dataStoreUtil)
-
             }
         }
-
-
     }
 }
 
