@@ -7,14 +7,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -45,12 +43,9 @@ fun WordsScreen(intent: Intent) {
     LaunchedEffect(Unit) {
         if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
             val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return@LaunchedEffect
-            // Gebruik `sharedText` als het Duitse woord.
-            // Je kunt de UI hier bijwerken of het woord toevoegen aan je woordenlijst
             newGermanWord = sharedText
         }
     }
-
 
     Column(modifier = Modifier.padding(16.dp)) {
         OutlinedTextField(
@@ -102,7 +97,6 @@ fun WordsScreen(intent: Intent) {
             )
 
         )
-
 
         LazyColumn(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {
             itemsIndexed(words) { index, wordPair ->

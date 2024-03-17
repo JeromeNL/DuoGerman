@@ -12,13 +12,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import nl.joramkwetters.duogerman.Navigation.AppNavigation
 import nl.joramkwetters.duogerman.ViewModels.ThemeViewModel
-import nl.joramkwetters.duogerman.data.DataStoreUtil
+import nl.joramkwetters.duogerman.Data.DataStoreUtil
 import nl.joramkwetters.duogerman.ui.theme.DuoGermanTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,14 +35,13 @@ class MainActivity : ComponentActivity() {
             else -> { false }
         }
 
-        val context: Context = this;
+        val context: Context = this
 
         setContent {
             val theme = dataStoreUtil.getTheme(systemTheme).collectAsState(initial = systemTheme)
             DuoGermanTheme(
                 darkTheme = theme.value
             ) {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

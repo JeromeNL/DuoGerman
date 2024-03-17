@@ -1,4 +1,4 @@
-package nl.joramkwetters.duogerman.data
+package nl.joramkwetters.duogerman.Data
 
 import android.content.Context
 import androidx.datastore.core.DataStore

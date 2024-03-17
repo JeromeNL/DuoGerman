@@ -1,4 +1,4 @@
-package nl.joramkwetters.duogerman.data
+package nl.joramkwetters.duogerman.Data
 
 import com.google.gson.annotations.SerializedName
 

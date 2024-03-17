@@ -1,4 +1,4 @@
-package nl.joramkwetters.duogerman.data
+package nl.joramkwetters.duogerman.Data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

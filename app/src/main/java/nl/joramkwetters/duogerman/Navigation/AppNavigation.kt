@@ -24,18 +24,16 @@ import nl.joramkwetters.duogerman.Screens.NewsScreen
 import nl.joramkwetters.duogerman.Screens.SettingsScreen
 import nl.joramkwetters.duogerman.Screens.WordsScreen
 import nl.joramkwetters.duogerman.ViewModels.ThemeViewModel
-import nl.joramkwetters.duogerman.data.DataStoreUtil
+import nl.joramkwetters.duogerman.Data.DataStoreUtil
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun AppNavigation(context: Context, dataStoreUtil: DataStoreUtil, themeViewModel: ThemeViewModel, intent: Intent) {
     val navController = rememberNavController()
-
-    // Bepaal de startbestemming op basis van de ontvangen intent
     val startDestination = if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
-        Screens.WordsScreen.name // Start op WordsScreen als de intent overeenkomt
+        Screens.WordsScreen.name
     } else {
-        Screens.HomeScreen.name // Anders start op HomeScreen
+        Screens.HomeScreen.name
     }
 
     Scaffold(
@@ -79,7 +77,7 @@ fun AppNavigation(context: Context, dataStoreUtil: DataStoreUtil, themeViewModel
                 HomeScreen()
             }
             composable(route = Screens.WordsScreen.name) {
-                WordsScreen(intent) // Zorg ervoor dat je de intent doorgeeft aan WordsScreen
+                WordsScreen(intent)
             }
             composable(route = Screens.NewsScreen.name) {
                 NewsScreen()
