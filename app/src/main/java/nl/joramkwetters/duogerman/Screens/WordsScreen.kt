@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -25,7 +26,8 @@ import com.google.gson.reflect.TypeToken
 @Composable
 fun WordsScreen(intent: Intent) {
     val context = LocalContext.current
-    val sharedPreferences = context.getSharedPreferences("nl.joramkwetters.duogerman", Context.MODE_PRIVATE)
+    val sharedPreferences =
+        context.getSharedPreferences("nl.joramkwetters.duogerman", Context.MODE_PRIVATE)
     val gson = Gson()
     val type = object : TypeToken<MutableList<Pair<String, String>>>() {}.type
     val savedWordsString = sharedPreferences.getString("words_list", null)
@@ -99,32 +101,38 @@ fun WordsScreen(intent: Intent) {
                 var editedGermanWord by remember { mutableStateOf(wordPair.second) }
 
                 if (isEditing) {
-                    Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         OutlinedTextField(
                             value = editedDutchWord,
                             onValueChange = { editedDutchWord = it },
                             label = { Text("Nederlands woord") },
                             modifier = Modifier.weight(1f)
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
                         OutlinedTextField(
                             value = editedGermanWord,
                             onValueChange = { editedGermanWord = it },
                             label = { Text("Duitse vertaling") },
                             modifier = Modifier.weight(1f)
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
                         Button(
                             onClick = {
-                            words[index] = editedDutchWord to editedGermanWord
-                            isEditing = false
-                            val json = gson.toJson(words)
-                            sharedPreferences.edit().putString("words_list", json).apply()
-                        },
+                                words[index] = editedDutchWord to editedGermanWord
+                                isEditing = false
+                                val json = gson.toJson(words)
+                                sharedPreferences.edit().putString("words_list", json).apply()
+                            },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.onBackground
                             )
-                            ) {
+                        ) {
                             Text(
-                                text  ="Opslaan",
+                                text = "Opslaan",
                                 color = MaterialTheme.colorScheme.surface,
                             )
                         }
@@ -134,38 +142,43 @@ fun WordsScreen(intent: Intent) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = "${wordPair.first} - ${wordPair.second}",
+                            modifier = Modifier.weight(1f),
                             color = MaterialTheme.colorScheme.secondary
                         )
-                        Button(
-                            onClick = { isEditing = true },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.onBackground
-                            ),
-                        ) {
-                            Text(
-                                text = "Bewerk",
-                                color = MaterialTheme.colorScheme.surface
-                            )
-                        }
-                        Button(
-                            onClick = {
-                            words.removeAt(index)
-                            val json = gson.toJson(words)
-                            sharedPreferences.edit().putString("words_list", json).apply()
-                        },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.onBackground
-                            ),
+                        Row {
+                            Button(
+                                onClick = { isEditing = true },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.onBackground
+                                ),
+                            ) {
+                                Text(
+                                    text = "Bewerk",
+                                    color = MaterialTheme.colorScheme.surface
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Button(
+                                onClick = {
+                                    words.removeAt(index)
+                                    val json = gson.toJson(words)
+                                    sharedPreferences.edit().putString("words_list", json).apply()
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.onBackground
+                                ),
 
-                        ) {
-                            Text(
-                                text = "Verwijder",
-                                color = MaterialTheme.colorScheme.surface
-                            )
+                                ) {
+                                Text(
+                                    text = "Verwijder",
+                                    color = MaterialTheme.colorScheme.surface
+                                )
+                            }
                         }
                     }
                 }
