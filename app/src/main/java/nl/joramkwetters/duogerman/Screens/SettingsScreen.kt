@@ -72,21 +72,21 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
         ) {
             Column {
                 Text(
-                    text = "Settings",
+                    text = "Instellingen",
                     modifier = Modifier,
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.secondary,
                 )
                 Text(
-                    text = "Change the setings of the app or test the notifications.",
+                    text = "Verander instellingen of test het uitvoeren van een notificatie.",
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier
                         .padding(bottom = 16.dp),
                 )
                 Text(
-                    text = "Notifications",
+                    text = "Notificaties",
                     modifier = Modifier,
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold,
@@ -102,7 +102,7 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
 
                 ){
                     Text(
-                        text = "Show practice notification",
+                        text = "Toon oefen notificatie",
                         color = MaterialTheme.colorScheme.surface
                     )
                 }
@@ -116,7 +116,7 @@ fun SettingsScreen(context: Context, dataStoreUtil: DataStoreUtil, themeViewMode
                     )
                 ){
                     Text(
-                        text = "Show news notification",
+                        text = "Toon nieuws notificatie",
                         color = MaterialTheme.colorScheme.surface
                     )
                 }

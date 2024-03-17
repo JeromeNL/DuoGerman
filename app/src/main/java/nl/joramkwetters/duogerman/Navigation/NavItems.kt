@@ -20,17 +20,17 @@ val listOfNavItems = listOf(
         route = Screens.HomeScreen.name
     ),
     NavItem(
-        label = "News",
+        label = "Nieuws",
         icon = Icons.Default.Info,
         route = Screens.NewsScreen.name
     ),
     NavItem(
-        label = "Words",
+        label = "Woorden",
         icon = Icons.Default.List,
         route = Screens.WordsScreen.name
     ),
     NavItem(
-        label = "Settings",
+        label = "Instellingen",
         icon = Icons.Default.Settings,
         route = Screens.SettingsScreen.name
     ),
