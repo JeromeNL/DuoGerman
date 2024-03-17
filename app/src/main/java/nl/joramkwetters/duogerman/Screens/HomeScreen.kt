@@ -3,6 +3,7 @@ package nl.joramkwetters.duogerman.Screens
 import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -65,9 +66,15 @@ fun HomeScreen() {
                         }
                         showTranslation = !showTranslation
                     },
-                    modifier = Modifier.padding(PaddingValues(top = 8.dp))
+                    modifier = Modifier.padding(PaddingValues(top = 8.dp)),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.onBackground
+                    )
                 ) {
-                    Text(if (!showTranslation) "Toon vertaling" else "Volgende")
+                    Text(
+                        text = if (!showTranslation) "Toon vertaling" else "Volgende",
+                        color = MaterialTheme.colorScheme.surface
+                    )
                 }
             }
         } else {

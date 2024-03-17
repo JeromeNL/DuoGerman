@@ -42,6 +42,16 @@ fun WordsScreen(intent: Intent) {
     var newDutchWord by remember { mutableStateOf("") }
     var newGermanWord by remember { mutableStateOf("") }
 
+    LaunchedEffect(Unit) {
+        if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
+            val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return@LaunchedEffect
+            // Gebruik `sharedText` als het Duitse woord.
+            // Je kunt de UI hier bijwerken of het woord toevoegen aan je woordenlijst
+            newGermanWord = sharedText
+        }
+    }
+
+
     Column(modifier = Modifier.padding(16.dp)) {
         OutlinedTextField(
             value = newDutchWord,
